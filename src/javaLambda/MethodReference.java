@@ -24,6 +24,7 @@ public class MethodReference {
 		//for static and non static reference example
 		interface Sayable{
 			void say();
+			//void yes();
 		}
 		
 		//method reference example 2 for static method reference
