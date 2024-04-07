@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class LambdaExerciseMain {
 	static String sortLastName = null;
@@ -19,39 +20,30 @@ public class LambdaExerciseMain {
 		
 		//step1 sort list by last name
 		System.out.println("################ Sort using Collection ###########" + "\n" );		
-		Collections.sort(person,Comparator.comparing(Person::getLastName) );
-		for (Person person3 : person) {
-			System.out.println(person3.getFirstName() + " " + person3.getLastName());
-		}
+		Collections.sort(person,(p1,p2) -> p1.getLastName().compareTo(p2.getLastName()));
+		printList(person, p->true);
 
 		//step 2 Create a method that prints all elements in the list	
 		System.out.println("################ All person list ###########" + "\n" );
-		printList(person, "personList");
-		//exerciseMain.printAllPersons(person);
+		printList(person, p -> true);
 		
 		//step 3 create a method that prints all elements that have last name starting with C;
 		System.out.println("################ Last name starts with c ###########" + "\n" );
-		printList(person, "lastNameWithC");
-	//	exerciseMain.lastNameWithC(person);
+		printList(person, p -> p.getLastName().startsWith("C"));
 		
 	}
-	public static void printList(List<Person> person, String value) {
+	public static void printList(List<Person> person, Predicate<Person> per) {
 		for (Person person2 : person) {
-			 
-		 if(value == "personList") 
-				System.out.println(person2.getFirstName() + " " + person2.getLastName());
-			
-			else if (value == "lastNameWithC")
-				if(lastNameFistWord(person2.getLastName()).equalsIgnoreCase("c"))
-					System.out.println(person2.getLastName());
-				
+			if(per.test(person2)) {
+				System.out.println(person2);
+			}
+		}
 	}
-	}
-	public static  String lastNameFistWord(String lastName) {
-		sortLastName = lastName.substring(0, 1);
-		return sortLastName;
-	}
-	
+//	public static  String lastNameFistWord(String lastName) {
+//		sortLastName = lastName.substring(0, 1);
+//		return sortLastName;
+//	}
+//	
 	
 //	public void printAllPersons(List<Person> person) {
 //		for (Person person2 : person) {
