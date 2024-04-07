@@ -2,8 +2,8 @@ package javaLambda.exercies;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class LambdaExerciseMain {
@@ -21,21 +21,21 @@ public class LambdaExerciseMain {
 		//step1 sort list by last name
 		System.out.println("################ Sort using Collection ###########" + "\n" );		
 		Collections.sort(person,(p1,p2) -> p1.getLastName().compareTo(p2.getLastName()));
-		printList(person, p->true);
+		printList(person, p->true, p->System.out.println(p));
 
 		//step 2 Create a method that prints all elements in the list	
 		System.out.println("################ All person list ###########" + "\n" );
-		printList(person, p -> true);
+		printList(person, p -> true, p->System.out.println(p));
 		
 		//step 3 create a method that prints all elements that have last name starting with C;
 		System.out.println("################ Last name starts with c ###########" + "\n" );
-		printList(person, p -> p.getLastName().startsWith("C"));
+		printList(person, p -> p.getLastName().startsWith("C"), p->System.out.println(p.getFirstName()));
 		
 	}
-	public static void printList(List<Person> person, Predicate<Person> per) {
+	public static void printList(List<Person> person, Predicate<Person> per, Consumer<Person> con) {
 		for (Person person2 : person) {
 			if(per.test(person2)) {
-				System.out.println(person2);
+				con.accept(person2);
 			}
 		}
 	}
